@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="949.0" prefWidth="3000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+   <children>
+      <TextField fx:id="txtFirstname" layoutX="873.0" layoutY="86.0" prefHeight="31.0" prefWidth="218.0" promptText="FirstName" />
+      <PasswordField fx:id="txtpassword" layoutX="873.0" layoutY="691.0" prefHeight="31.0" prefWidth="218.0" promptText="Password/Pin" />
+       </children>
+      <Label fx:id="lblSignup" layoutX="38.0" layoutY="21.0" prefHeight="21.0" prefWidth="246.0" text="Banking Signup">
+         <font>
+            <Font name="System Bold Italic" size="32.0" />
+         </font>
+      </Label>
+      <Button layoutX="949.0" layoutY="739.0" mnemonicParsing="false" onAction="#Signup" text="Signup" />
+       
+      <TextField fx:id="txtLastname" layoutX="873.0" layoutY="131.0" prefHeight="31.0" prefWidth="218.0" promptText="LastName" />
+      <TextField fx:id="txtPan" layoutX="873.0" layoutY="238.0" prefHeight="31.0" prefWidth="218.0" promptText="Pan Number" />
+      <TextField fx:id="txtPhn" layoutX="873.0" layoutY="384.0" prefHeight="31.0" prefWidth="218.0" promptText="Phone Number" />
+      <TextField fx:id="txtAltPhn" layoutX="873.0" layoutY="430.0" prefHeight="31.0" prefWidth="218.0" promptText="Alternative Phone Number" />
+      <TextField fx:id="txtemail" layoutX="873.0" layoutY="334.0" prefHeight="31.0" prefWidth="218.0" promptText="Email Id" />
+      <AmbientLight color="CHARTREUSE" lightOn="true" />
+      <DatePicker fx:id="txtDOB" layoutX="873.0" layoutY="183.0" promptText="Date of Birth" />
+      <TextField fx:id="txtSSN" layoutX="873.0" layoutY="285.0" prefHeight="31.0" prefWidth="218.0" promptText="Social Security Number" />
+      <TextArea fx:id="txtAddress" layoutX="873.0" layoutY="475.0" prefHeight="156.0" prefWidth="218.0" promptText="Address" />
+      <TextField fx:id="txtUsername" layoutX="873.0" layoutY="645.0" prefHeight="31.0" prefWidth="218.0" promptText="Username" />
+  
+   
+</AnchorPane>

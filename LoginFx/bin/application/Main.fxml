@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="51.0" layoutY="103.0" promptText="Acc_no/Username" />
+      <Label layoutX="22.0" layoutY="23.0" prefHeight="37.0" prefWidth="122.0" text="Login">
+         <font>
+            <Font name="Verdana Bold Italic" size="32.0" />
+         </font>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </Label>
+      <PasswordField layoutX="51.0" layoutY="160.0" promptText="Password/Pin" />
+      <Button alignment="BOTTOM_RIGHT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="67.0" layoutY="241.0" mnemonicParsing="false" text="Login" />
+      <Button layoutX="172.0" layoutY="241.0" mnemonicParsing="false" text="Signup" textOverrun="CENTER_ELLIPSIS" />
+      <Hyperlink layoutX="145.0" layoutY="191.0" text="Forgot password" textFill="#030303" underline="true" />
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+      
+   </cursor>
+    
+</AnchorPane>
