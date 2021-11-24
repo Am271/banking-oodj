@@ -1,0 +1,27 @@
+create customer instance  - an instance of customer obj is created with these parameters
+name
+phone_no
+address
+acc_no
+ac_open_date
+home_br
+email
+
+in login() - get user credentials from ui
+check if cred(s) are in db
+ if yes, create a new customer obj using parameterised constructor
+
+in signup() - prompt the user to enter all columns of customer_details table
+and username and password - using temp object , then an acc_no is randomly generated 
+(10 digits)
+
+calls fill passinf temp obj as parameter
+fill() inserts record into customer db
+\\go back to login()
+
+
+in transaction class
+1. check balance()
+2. display customer info()
+3. update customer info() - only email, phno and address
+4. perform money transfer()
