@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Banking {
   private String IFCS;
@@ -54,6 +56,26 @@ public class Banking {
       fillDetails(acc_no); // This function will create an instance of the Customer object with the necessary details from the database
       // This is necessary because the user's balance and account details will have to be displayed to the user when necessary
   }
+
+  public void signup() {
+    String tname,tphno,temail,taddr,tssn,tdob,tpan,tacno,tacopdt,thbr;
+
+    Customer tc;
+
+    //code to obtain details from UI
+
+    long tacno = (long) Math.floor(Math.random() * 900_000_000L) + 1_000_000_000L;
+
+    String pattern = "yyyy-MM-dd";
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+    tacopdt = simpleDateFormat.format(new Date());
+
+    thbr = "Kudlu Gate";
+
+    tc = new Customer(tname,tphno,temail,taddr,tssn,tdob,tpan,tacno,tacopdt,thbr);
+    fill(tc);
+  }
+
   public static void main(String[] args) {
     Banking obj = new Banking();
   }
