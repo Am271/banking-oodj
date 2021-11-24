@@ -10,6 +10,44 @@ public class Customer extends Person {
    private String ac_open_date;
    private String home_br;
 
+   public Customer(String name,
+   String phone_no,
+   String email,
+   String address,
+   String ssn,
+   String dob,
+   String pan,
+   String acc_no,
+   String ac_open_date,
+   String home_br) {
+      this.name= name;
+      this.phone_no = phone_no;
+      this.email = email;
+      this.address = address;
+      this.ssn = ssn;
+      this.dob = dob;
+      this.pan = pan;
+      this.acc_no = acc_no;
+      this.ac_open_date = ac_open_date;
+      this.home_br = home_br;
+   }
+
+   public Customer(String name,
+   String phone_no,
+   String email,
+   String address,
+   String acc_no,
+   String ac_open_date,
+   String home_br) {
+      this.name= name;
+      this.phone_no = phone_no;
+      this.email = email;
+      this.address = address;
+      this.acc_no = acc_no;
+      this.ac_open_date = ac_open_date;
+      this.home_br = home_br;
+   }
+
    public String getName() {
       return this.name;
    }
@@ -24,18 +62,6 @@ public class Customer extends Person {
 
    public String getAddr() {
       return this.address;
-   }   
-
-   public String getSSn() {
-      return this.ssn;
-   }
-
-   public String getDob() {
-      return this.dob;
-   }
-
-   public String getPan() {
-      return this.pan;
    }
 
    public String getAcc_no() {
@@ -50,10 +76,6 @@ public class Customer extends Person {
       return this.home_br;
    }
 
-   public void setName(String name) {
-      this.name = name;
-   }
-
    public void setPhone_no(String phone_no) {
       this.phone_no = phone_no;
    }
@@ -64,29 +86,5 @@ public class Customer extends Person {
 
    public void setAddr(String address) {
       this.address = address;
-   }
-
-   public void setSsn(String ssn) {
-      this.ssn = ssn;
-   }
-
-   public void setDob(String dob) {
-      this.dob = dob;
-   }
-
-   public void setPan(String pan) {
-      this.pan = pan;
-   }
-
-   public void setAcc_no(String acc_no) {
-      this.acc_no = acc_no;
-   }
-
-   public void setAc_open_date(String ac_open_date) {
-      this.ac_open_date = ac_open_date;
-   }
-
-   public void setHome_br(String home_br) {
-      this.home_br = home_br;
    }
 }
