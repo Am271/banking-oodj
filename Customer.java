@@ -9,7 +9,7 @@ public class Customer extends Person {
     public Customer(ResultSet res) throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://databasename","username","password");
+            conn = DriverManager.getConnection("jdbc:mysql://remotemysql.com/KOVPwh7gZl","KOVPwh7gZl","EpNstXzaUh");
         }
         catch (SQLException e) {
             System.out.println("SQL Exception error occurred.\n" + e);

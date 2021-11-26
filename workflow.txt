@@ -25,3 +25,11 @@ in transaction class
 2. display customer info()
 3. update customer info() - only email, phno and address
 4. perform money transfer()
+
+MainMenu contents
+1. transact money
+2. check balance
+3. display transactions
+4. display customer details
+5. update customer details
+6. change password
