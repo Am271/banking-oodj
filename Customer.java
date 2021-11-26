@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.io.*;
 
 public class Customer extends Person {
     public String acc_no;
@@ -27,7 +28,35 @@ public class Customer extends Person {
             this.home_br = res.getString("home_br");
         }
 
-        //print the result in ui
+    }
+
+    public void DispDetails() throws IOException{
+      System.out.println("-------Customer Details-------");
+      System.out.println("Name               : "+ this.name);
+      System.out.println("Phone Number       : "+ this.phone_no);
+      System.out.println("Email ID           : "+ this.email);
+      System.out.println("Address            : "+ this.address);
+      System.out.println("Account number     : "+ this.acc_no);
+      System.out.println("Account open date  : "+ this.acc_open_dt);
+      System.out.println("Home Branch        : "+ this.home_br);
+      System.out.println("------------------------------");
+      System.out.println("Enter 1 to update details");
+      System.out.println("Enter anything else to go back");
+      int ch;
+      BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
+      ch = b.read();
+      switch(ch) {
+         case 1:
+            System.out.println("Enter new Email ID");
+            String em = b.readLine();
+            System.out.println("Enter new Phone number");
+            String pn = b.readLine();
+            System.out.println("Enter new Address");
+            String ad = b.readLine();
+            this.UpdateDetails(em,pn,ad);
+         break;
+      }
+
     }
 
     public String CheckBalance() throws SQLException {
@@ -36,26 +65,26 @@ public class Customer extends Person {
         ResultSet tmp = st.executeQuery(query);
 
         tmp.next();
-        return tmp.getString("acc_no");
+        return tmp.getString("acc_bal");
     }
 
     // public String[] DisplayDetails() {
     //     // Code yet to be implemented
     // }
 
-    public void UpdateDetails(String email, String phone_no, String address) throws SQLException {
+    private void UpdateDetails(String email, String phone_no, String address) throws SQLException {
         Statement st = conn.createStatement();
-        if(email == "")
+        if(!(email == ""))
         {
             String query = "UPDATE customer_details SET email="+email+"WHERE acc_no="+this.acc_no+";";
             this.email = email;
         }
-        if(phone_no == "")
+        if(!(phone_no == ""))
         {
             String query = "UPDATE customer_details SET phone_no="+phone_no+"WHERE acc_no="+this.acc_no+";";
             this.email = email;
         }
-        if(address == "")
+        if(!(address == ""))
         {
             String query = "UPDATE customer_details SET address="+address+"WHERE acc_no="+this.acc_no+";";
             this.address = address;

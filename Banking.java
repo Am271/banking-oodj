@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.text.SimpleDateFormat;
 //import java.util.Date;
-//import java.io.*;
+import java.io.*;
 
 public class Banking {
 
@@ -90,22 +90,22 @@ public class Banking {
         return true;
     }
 
-    public void DispTransactions(int no_tr) throws SQLException {
+    public void DispTransactions() throws SQLException {
         Statement st = conn.createStatement();
         ResultSet r;
         String query;
-
-        if (no_tr == -1) {
-            r = st.executeQuery("SELECT COUNT(*) AS rowcount FROM transactions WHERE from_acc_no=" + c.acc_no + " OR to_acc_no=" + c.acc_no + ";");
-            r.next();
-            no_tr = r.getInt("rowcount");
-        }
+        //counting no of records in transactions table
+        r = st.executeQuery("SELECT COUNT(*) AS rowcount FROM transactions WHERE from_acc_no=" + c.acc_no + " OR to_acc_no=" + c.acc_no + ";");
+        r.next();
+        int no_tr = r.getInt("rowcount");
 
         query = "SELECT * FROM transactions WHERE from_acc_no=" + c.acc_no + " OR to_acc_no=" + c.acc_no + ";";
         r = st.executeQuery(query);
 
+        System.out.println("|   From Account    |    To Account    |   Beneficiary name   |  Transaction ID  |  Transaction Amount | Date |");
         for (int i = 0; i < no_tr; i++) {
             r.next();
+            System.out.println("|"+r.getString("from_acc_no")+"|"+r.getString("to_acc_no")+"|"+r.getString("benf_name")+"|"+r.getString("tr_id")+"|"+r.getString("tr_amt")+"|"+r.getString("tr_date")+"|");
         }
     }
 
@@ -125,51 +125,118 @@ public class Banking {
         return true;
     }
 
-//  public static void console(Banking obj) throws IOException{
-//    System.out.println("---------------------------------");
-//    System.out.println("              LOGIN/SIGNUP");
-//    System.out.println("---------------------------------");
-//    System.out.println("Enter 1 for login");
-//    System.out.println("Enter 2 for Signup");
-//    BufferedReader b = new BufferedReader(new InputStreamReader(system.in));
-//    int choice = b.read();
-//    if(choice == 1) {
-//      System.out.println("Enter Username");
-//      String name = b.readLine();
-//      System.out.println("Enter Password");
-//      String pass = b.readLine();
-//      boolean flag = obj.login(name,pass);
-//    }
-//    if(choice == 2) {
-//      System.out.println("Enter the following");
-//      System.out.println("Name :");
-//      String name = b.readLine();
-//
-//      System.out.println("Phone number:");
-//      String phone_no = b.readLine();
-//
-//      System.out.println("Email:");
-//      String email = b.readLine();
-//
-//      System.out.println("Address:");
-//      String addr = b.readLine();
-//
-//      System.out.println("Social Security Number:");
-//      String ssn = b.readLine();
-//
-//      System.out.println("Date of Birth:");
-//      String name = b.readLine();
-//
-//      System.out.println("PAN:");
-//      String name = b.readLine();
-//
-//      System.out.println("Enter Username");
-//      String name = b.readLine();
-//      
-//      System.out.println("Enter Password");
-//      String pass = b.readLine();
-//      
-//      obj.signup(name, phone_no, email, add)
-//    }
-//  }
+    public static void console(Banking obj) throws IOException {
+     System.out.println("---------------------------------");
+     System.out.println("              LOGIN/SIGNUP");
+     System.out.println("---------------------------------\n");
+     System.out.println("Enter 1 for login");
+     System.out.println("Enter 2 for Signup");
+     BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
+     int choice = b.read();
+     if(choice == 1) {
+        boolean flag; 
+        do {
+           System.out.println("Enter Username");
+           String name = b.readLine();
+           System.out.println("Enter Password");
+           String pass = b.readLine();
+           flag = obj.login(name,pass);
+           if(!flag){
+            System.out.println("Incorrect username/password!\n");
+        }
+    }while(!flag);
+
+    boolean temp = true;
+    while(temp == true) {
+
+        System.out.println("-----------------------------");
+        System.out.println("           Main Menu");
+        System.out.println("-----------------------------\n");
+        System.out.println("1. Check Balance");
+        System.out.println("2. Transfer fund");
+        System.out.println("3. Display Customer details");
+        System.out.println("4. Display transactions");
+        System.out.println("5. Change password");
+        System.out.println("6. Logout");
+        System.out.println("Enter choice : ");
+        choice = b.read();
+        switch(choice) {
+              case 1:
+              obj.c.CheckBalance();
+              break;
+              case 2:
+              System.out.println("-----------------------------");
+              System.out.println("           Transfer Fund");
+              System.out.println("-----------------------------\n");
+              System.out.print("Enter Beneficiary name : ");
+              String s = b.readLine();
+              System.out.print("Enter Transfer Amount : ");
+              String amt = b.readLine();
+              System.out.print("Enter Beneficiary Account number : ");
+              String ac = b.readLine();
+              boolean result = obj.Transact(amt,s,ac);
+              if(!result) {
+                  System.out.println("Beneficiary Account number does not exist");
+              }
+              break;
+              case 3:
+              obj.c.DispDetails();
+              break;
+              case 4:
+              obj.DispTransactions();
+              break;
+              case 5:
+              boolean f; 
+              do {
+                System.out.println("Enter old password");
+                String old = b.readLine();
+                System.out.println("Enter new password");
+                String nu = b.readLine();
+                f = obj.ChangePassword(old,nu);
+                if(!f) {
+                    System.out.println("Incorrect old password!\n");
+                }
+                }while(!f);
+              break;
+              case 6:
+                temp = false;
+              break;
+              default:
+                System.out.println("Invalid choice");
+              break;
+            }
+        }
+    }
+if(choice == 2) {
+   System.out.println("Enter the following");
+   System.out.println("Name :");
+   String name = b.readLine();
+
+   System.out.println("Phone number:");
+   String phone_no = b.readLine();
+
+   System.out.println("Email:");
+   String email = b.readLine();
+
+   System.out.println("Address:");
+   String addr = b.readLine();
+
+   System.out.println("Social Security Number:");
+   String ssn = b.readLine();
+
+   System.out.println("Date of Birth:");
+   String dob = b.readLine();
+
+   System.out.println("PAN:");
+   String pan = b.readLine();
+
+   System.out.println("Enter Username");
+   String username = b.readLine();
+
+   System.out.println("Enter Password");
+   String pass = b.readLine();
+
+   obj.signup(name, phone_no, email, addr, ssn, dob, pan, username, pass);
+}
+}
 }
