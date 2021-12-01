@@ -9,8 +9,8 @@ public class Customer extends Person {
 
     public Customer(ResultSet res) throws SQLException {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://remotemysql.com/KOVPwh7gZl","KOVPwh7gZl","EpNstXzaUh");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://remotemysql.com/KOVPwh7gZl", "KOVPwh7gZl", "EpNstXzaUh");
         }
         catch (SQLException e) {
             System.out.println("SQL Exception error occurred.\n" + e);
@@ -24,13 +24,16 @@ public class Customer extends Person {
             this.email = res.getString("email");
             this.address = res.getString("address");
             this.acc_no = res.getString("acc_no");
-            this.acc_open_dt = res.getString("acc_open_dt");
-            this.home_br = res.getString("home_br");
         }
+        
+        // while(res.next()) {
+        //     this.acc_open_dt = res.getString("acc_open_date");
+        //     this.home_br = res.getString("home_branch");
+        // }
 
     }
 
-    public void DispDetails() throws IOException{
+    public void DispDetails() throws IOException, SQLException {
       System.out.println("-------Customer Details-------");
       System.out.println("Name               : "+ this.name);
       System.out.println("Phone Number       : "+ this.phone_no);
@@ -44,7 +47,7 @@ public class Customer extends Person {
       System.out.println("Enter anything else to go back");
       int ch;
       BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
-      ch = b.read();
+      ch = Integer.parseInt(b.readLine());
       switch(ch) {
          case 1:
             System.out.println("Enter new Email ID");
@@ -61,32 +64,29 @@ public class Customer extends Person {
 
     public String CheckBalance() throws SQLException {
         Statement st = conn.createStatement();
-        String query = "SELECT acc_bal FROM customer_details WHERE acc_no=" + this.acc_no + ";";
+        String query = "SELECT acc_bal FROM customer_details WHERE acc_no=`" + this.acc_no + "`;";
         ResultSet tmp = st.executeQuery(query);
 
         tmp.next();
         return tmp.getString("acc_bal");
     }
 
-    // public String[] DisplayDetails() {
-    //     // Code yet to be implemented
-    // }
 
     private void UpdateDetails(String email, String phone_no, String address) throws SQLException {
         Statement st = conn.createStatement();
         if(!(email == ""))
         {
-            String query = "UPDATE customer_details SET email="+email+"WHERE acc_no="+this.acc_no+";";
+            String query = "UPDATE customer_details SET email=`"+email+"` WHERE acc_no=`"+this.acc_no+"`;";
             this.email = email;
         }
         if(!(phone_no == ""))
         {
-            String query = "UPDATE customer_details SET phone_no="+phone_no+"WHERE acc_no="+this.acc_no+";";
+            String query = "UPDATE customer_details SET phone_no=`"+phone_no+"` WHERE acc_no=`"+this.acc_no+"`;";
             this.email = email;
         }
         if(!(address == ""))
         {
-            String query = "UPDATE customer_details SET address="+address+"WHERE acc_no="+this.acc_no+";";
+            String query = "UPDATE customer_details SET address=`"+address+"` WHERE acc_no=`"+this.acc_no+"`;";
             this.address = address;
         }
     }
