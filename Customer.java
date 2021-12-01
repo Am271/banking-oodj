@@ -62,13 +62,13 @@ public class Customer extends Person {
 
     }
 
-    public String CheckBalance() throws SQLException {
+    public void CheckBalance() throws SQLException {
         Statement st = conn.createStatement();
-        String query = "SELECT acc_bal FROM customer_details WHERE acc_no=`" + this.acc_no + "`;";
+        String query = "SELECT `acc_balance` FROM `banking` WHERE `acc_no`='" + this.acc_no + "';";
         ResultSet tmp = st.executeQuery(query);
 
         tmp.next();
-        return tmp.getString("acc_bal");
+        System.out.println(tmp.getString("acc_balance"));
     }
 
 
@@ -76,17 +76,17 @@ public class Customer extends Person {
         Statement st = conn.createStatement();
         if(!(email == ""))
         {
-            String query = "UPDATE customer_details SET email=`"+email+"` WHERE acc_no=`"+this.acc_no+"`;";
+            String query = "UPDATE `customer_details` SET `email`='"+email+"' WHERE `acc_no`='"+this.acc_no+"';";
             this.email = email;
         }
         if(!(phone_no == ""))
         {
-            String query = "UPDATE customer_details SET phone_no=`"+phone_no+"` WHERE acc_no=`"+this.acc_no+"`;";
+            String query = "UPDATE `customer_details` SET `phone_no`='"+phone_no+"' WHERE `acc_no`='"+this.acc_no+"';";
             this.email = email;
         }
         if(!(address == ""))
         {
-            String query = "UPDATE customer_details SET address=`"+address+"` WHERE acc_no=`"+this.acc_no+"`;";
+            String query = "UPDATE `customer_details` SET `address`='"+address+"' WHERE `acc_no`='"+this.acc_no+"';";
             this.address = address;
         }
     }

@@ -24,7 +24,7 @@ public class Banking {
         ResultSet login_cred;
         String acc_no;
 
-        query = "SELECT * FROM credentials WHERE username='" + username + "' AND password='" + password + "';";
+        query = "SELECT * FROM `credentials` WHERE `username`='" + username + "' AND `password`='" + password + "';";
         // The above string is the query to check if the database contains credentials entered by the user
         Statement st = conn.createStatement(); // Creation of the statement to execute the query
         login_cred = st.executeQuery(query); // Query is executed and result set is obtained
@@ -34,7 +34,7 @@ public class Banking {
         } else {
             login_cred.next();
             acc_no = login_cred.getString("acc_no"); // Get account number from the result set
-            query = "SELECT * FROM customer_details WHERE acc_no='" + acc_no + "';";
+            query = "SELECT * FROM `customer_details` WHERE `acc_no`='" + acc_no + "';";
             ResultSet tmp = st.executeQuery(query);
             c = new Customer(tmp);
             return true;
@@ -77,8 +77,8 @@ public class Banking {
 
         query = "INSERT INTO `credentials`(`username`, `password`, `acc_no`) VALUES (?,?,?)";
         pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, tpass);
-        pstmt.setString(2, tusername);
+        pstmt.setString(1, tusername);
+        pstmt.setString(2, tpass);
         pstmt.setString(3, tacno);
         pstmt.execute();
     }
@@ -87,16 +87,36 @@ public class Banking {
         Statement st = conn.createStatement();
         String query, tr_date, pattern;
 
-        ResultSet r = st.executeQuery("SELECT * FROM banking WHERE acc_no=`" + benf_acc_no + "`;");
+        ResultSet r = st.executeQuery("SELECT * FROM banking WHERE `acc_no`='" + benf_acc_no + "';");
         if (!r.isBeforeFirst()) {
             return false;
         }
+        else {
+            // long tr_id = (long) Math.floor(Math.random() * 900_000_000_000L) + 100_000_000_000L;
+            // pattern = "yyyy-MM-dd";
+            // SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            // tr_date = simpleDateFormat.format(new Date());
 
-        long tr_id = (long) Math.floor(Math.random() * 900_000_000_000L) + 100_000_000_000L;
+            // query = "INSERT INTO `transactions`(`from_acc_no`, `to_acc_no`, `benificiary name`, `transaction_id`, `transfer_amt`, `transaction_date`) VALUES (?,?,?,?,?,?)";
+            // PreparedStatement s = conn.prepareStatement(query);
+            // s.setString(1, c.acc_no);
+            // s.setString(2, benf_acc_no);
+            // s.setString(3, benf_name);
+            // s.setString(4, Long.toString(tr_id));
+            // s.setString(5, tr_amt);
+            // s.setString(6, tr_date);
+            // s.execute();
 
-        pattern = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-//    tr_date = simpleDateFormat.format(new Date());
+            // query = "SELECT acc_balance FROM `banking` WHERE `acc_no`='" + c.acc_no + "';";
+            // ResultSet tmp = st.executeQuery(query);
+            // tmp.next();
+            // String acc_bal = tmp.getString("acc_balance");
+            // double new_acc_bal = Double.
+
+            // long 
+
+            query = "UPDATE `banking` SET `acc_balance`=";
+        }
 
 //    query="INSERT INTO transactions VALUES(" + c.acc_no + "," + benf_acc_no + "," + benf_name + "," + tr_id + "," + tr_amt + "," + tr_date + ");";
 //    st.executeUpdate(query);
@@ -108,11 +128,11 @@ public class Banking {
         ResultSet r;
         String query;
         //counting no of records in transactions table
-        r = st.executeQuery("SELECT COUNT(*) AS rowcount FROM transactions WHERE from_acc_no=`" + c.acc_no + "` OR to_acc_no=`" + c.acc_no + "`;");
+        r = st.executeQuery("SELECT COUNT(*) AS rowcount FROM `transactions` WHERE `from_acc_no`='" + c.acc_no + "' OR `to_acc_no`='" + c.acc_no + "';");
         r.next();
         int no_tr = r.getInt("rowcount");
 
-        query = "SELECT * FROM transactions WHERE from_acc_no=`" + c.acc_no + "` OR to_acc_no=`" + c.acc_no + "`;";
+        query = "SELECT * FROM `transactions` WHERE `from_acc_no`='" + c.acc_no + "' OR `to_acc_no`='" + c.acc_no + "';";
         r = st.executeQuery(query);
 
         System.out.println("|   From Account    |    To Account    |   Beneficiary name   |  Transaction ID  |  Transaction Amount | Date |");
@@ -127,13 +147,13 @@ public class Banking {
         Statement s = conn.createStatement();
         String query;
 
-        query = "SELECT * FROM credentials WHERE password=`" + old_pass + "`;";
+        query = "SELECT * FROM `credentials` WHERE `password`='" + old_pass + "';";
         ResultSet r = s.executeQuery(query);
         if (!r.isBeforeFirst()) {
             return false;
         }
 
-        query = "UPDATE TABLE credentials SET password =`" + new_pass + "` WHERE acc_no=`" + c.acc_no + "` AND password=`" + old_pass + "`;";
+        query = "UPDATE `credentials` SET `password`='" + new_pass + "' WHERE `acc_no`='" + c.acc_no + "' AND `password`='" + old_pass + "';";
         s.executeUpdate(query);
         return true;
     }
@@ -254,8 +274,8 @@ if(choice == 2) {
 }
     public static void main(String[] args) throws IOException, SQLException {
         Banking obj = new Banking();
-        // console(obj);
-        obj.login("kp", "kp");
-        obj.ChangePassword("kp","secret");
+        console(obj);
+        // obj.login("kp", "kp");
+        // obj.ChangePassword("kp","secret");
     }
 }
